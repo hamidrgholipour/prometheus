@@ -1,2 +1,7 @@
-grafana-data/
-prometheus-data/{01HCSD7Q7ABKRN39BHGGAZ6AG3,01HCSFXS4BGHEMV8DW86FXV1C7,chunks_head,lock,queries.active,wal}
+a-data/
+prometheus-data/01HCSD7Q7ABKRN39BHGGAZ6AG3,
+prometheus-data/01HCSFXS4BGHEMV8DW86FXV1C7
+prometheus-data/chunks_head
+prometheus-data/lock
+prometheus-data/queries.active
+prometheus-data/wal
