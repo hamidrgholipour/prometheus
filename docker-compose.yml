@@ -22,12 +22,6 @@ services:
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
       - '--web.enable-lifecycle'
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=http_network"
-      - "traefik.http.routers.pro.entrypoints=http"
-      - "traefik.http.routers.pro.rule=Host(`prometheus.DOMAIN`)"
-      - "traefik.http.services.pro.loadbalancer.server.port=9090"
 
   node-exporter:
     image: prom/node-exporter:latest
