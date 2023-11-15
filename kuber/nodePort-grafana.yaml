@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: grafana-np
+spec:
+  selector:
+    app.kubernetes.io/instance: demo-1
+    app.kubernetes.io/name: grafana
+  type: NodePort
+  ports:
+    - port: 8080
+      #destination port
+      targetPort: 3000

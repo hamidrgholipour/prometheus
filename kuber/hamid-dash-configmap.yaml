@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-hamid-dashboard
+  namespace: demo
+  labels:
+    grafana_dashboard: "true"
+data:
+  kuber-hamid-dashboard.json: | (3)
+    ${indent(4, data)}
