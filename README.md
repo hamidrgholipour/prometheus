@@ -1,1 +1,1 @@
-## deoloying kubernetes and docker prometheus monitoring
+## deoloying kubernetes and docker  monitoring with prometheus and grafana
