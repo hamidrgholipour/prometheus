@@ -13,6 +13,8 @@ services:
     container_name: prometheus
     ports:
       - "9090:9090"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  
     volumes:
       - ./prometheus-data/:/etc/prometheus/
       - ./prometheus-data/:/prometheus
@@ -39,18 +41,18 @@ services:
     - --collector.filesystem.ignored-mount-points
     - ^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)
 
-  # cadvisor:
-  #   image: gcr.io/cadvisor/cadvisor
-  #   container_name: cadvisor
-  #   ports:
-  #     - "8080:8080"    
-  #   volumes:
-  #   - /:/rootfs:ro
-  #   - /var/run:/var/run:rw
-  #   - /sys:/sys:ro
-  #   - /var/lib/docker/:/var/lib/docker:ro
-  #   - /dev/disk/:/dev/disk:ro
-  #   - /etc/localtime:/etc/localtime:ro
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    ports:
+      - "8080:8080"    
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    - /dev/disk/:/dev/disk:ro
+    - /etc/localtime:/etc/localtime:ro
 
 volumes:
     grafana:

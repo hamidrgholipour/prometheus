@@ -18,6 +18,13 @@ scrape_configs:
   - job_name: "docker"
     static_configs:
       - targets: ["host.docker.internal:9323"]
+  - job_name: "cAdvisor"
+    static_configs:
+      - targets: ["cadvisor:8080"] 
+      
+  - job_name: "k8s"
+    static_configs:
+      - targets: ["10.43.198.126:8080"]    
 
   # Create a job for Docker Swarm containers.
   #
