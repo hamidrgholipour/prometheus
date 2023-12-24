@@ -1,0 +1,49 @@
+NAME                                       READY   STATUS             RESTARTS       AGE
+pod/blackbox-exporter-5fd45d4b87-s2l2r     3/3     Running            0              55m
+pod/prometheus-operator-7bb6fc4fff-82tcz   2/2     Running            0              55m
+pod/kube-state-metrics-5b4f465748-57tv4    3/3     Running            0              55m
+pod/alertmanager-main-2                    2/2     Running            0              55m
+pod/alertmanager-main-1                    2/2     Running            0              55m
+pod/alertmanager-main-0                    2/2     Running            0              55m
+pod/prometheus-k8s-0                       2/2     Running            0              55m
+pod/prometheus-k8s-1                       2/2     Running            0              55m
+pod/grafana-649dfb4587-9kctk               1/1     Running            1 (52m ago)    55m
+pod/prometheus-adapter-5485575f49-b7shr    1/1     Running            0              55m
+pod/prometheus-adapter-5485575f49-nmfbs    1/1     Running            0              55m
+pod/node-exporter-5n6s5                    0/2     CrashLoopBackOff   15 (69s ago)   17m
+
+NAME                            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+service/alertmanager-main       ClusterIP   10.43.84.198    <none>        9093/TCP,8080/TCP            55m
+service/blackbox-exporter       ClusterIP   10.43.20.25     <none>        9115/TCP,19115/TCP           55m
+service/grafana                 ClusterIP   10.43.119.154   <none>        3000/TCP                     55m
+service/kube-state-metrics      ClusterIP   None            <none>        8443/TCP,9443/TCP            55m
+service/node-exporter           ClusterIP   None            <none>        9100/TCP                     55m
+service/prometheus-k8s          ClusterIP   10.43.62.232    <none>        9090/TCP,8080/TCP            55m
+service/prometheus-adapter      ClusterIP   10.43.4.201     <none>        443/TCP                      55m
+service/prometheus-operator     ClusterIP   None            <none>        8443/TCP                     55m
+service/alertmanager-operated   ClusterIP   None            <none>        9093/TCP,9094/TCP,9094/UDP   55m
+service/prometheus-operated     ClusterIP   None            <none>        9090/TCP                     55m
+
+NAME                           DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE
+daemonset.apps/node-exporter   1         1         0       1            0           kubernetes.io/os=linux   55m
+
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/blackbox-exporter     1/1     1            1           55m
+deployment.apps/prometheus-operator   1/1     1            1           55m
+deployment.apps/kube-state-metrics    1/1     1            1           55m
+deployment.apps/grafana               1/1     1            1           55m
+deployment.apps/prometheus-adapter    2/2     2            2           55m
+
+NAME                                             DESIRED   CURRENT   READY   AGE
+replicaset.apps/blackbox-exporter-5fd45d4b87     1         1         1       55m
+replicaset.apps/prometheus-operator-7bb6fc4fff   1         1         1       55m
+replicaset.apps/kube-state-metrics-5b4f465748    1         1         1       55m
+replicaset.apps/grafana-649dfb4587               1         1         1       55m
+replicaset.apps/prometheus-adapter-5485575f49    2         2         2       55m
+
+NAME                                 READY   AGE
+statefulset.apps/alertmanager-main   3/3     55m
+statefulset.apps/prometheus-k8s      2/2     55m
+
+NAME                                                    COMPLETIONS   DURATION   AGE
+job.batch/demo2-kube-prometheus-stac-admission-create   1/1           7m44s      4d23h
