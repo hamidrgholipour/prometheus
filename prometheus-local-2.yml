@@ -1,17 +1,15 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: prometheus-local
+  name: prometheus-pv
 spec:
-  #add from a forum      
-  # storageClassName: managed-nfs-storage      
-  ###
-  storageClassName: local
   capacity:
     storage: 5Gi
+  volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
   local:
     path: /root/storage
   nodeAffinity:
@@ -21,5 +19,4 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - master        
-          - hamid    
+          - hamid
