@@ -2904,7 +2904,7 @@ prometheus:
   ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#prometheusspec
   ##
   prometheusSpec:
-    enabled: true
+    # enabled: true
 
     ## If true, pass --storage.tsdb.max-block-duration=2h to prometheus. This is already done if using Thanos
     ##
@@ -3292,7 +3292,7 @@ prometheus:
           name: prometheus-pvc
         spec:
           storageClassName: nfs
-          accessModes: ["ReadWriteMany"]
+          accessModes: ["ReadWriteOnce"]
           resources:
             requests:
               storage: 5Gi
