@@ -3291,8 +3291,8 @@ prometheus:
         metadata:
           name: prometheus-pvc
         spec:
-          storageClassName: local
-          accessModes: ["ReadWriteOnce"]
+          storageClassName: nfs
+          accessModes: ["ReadWriteMany"]
           resources:
             requests:
               storage: 5Gi
