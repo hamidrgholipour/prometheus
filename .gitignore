@@ -1,2 +1,3 @@
 docker/grafana-data/
 docker/prometheus-data/
+docker/alertmanager-data/

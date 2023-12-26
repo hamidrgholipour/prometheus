@@ -1,0 +1,20 @@
+route:
+  receiver: 'mail'
+  repeat_interval: 4h
+  group_by: [ alertname ]
+  # routes:
+  #   - match_re:
+  #       job: (svr-1|prometheus)
+  #     group_by:   ['severity']
+  #     receiver: 'mail'
+
+
+
+receivers:
+  - name: 'mail'
+    email_configs:
+      - smarthost: 'smtp.gmail.com:465'
+        auth_username: 'hamid@gmail.com'
+        auth_password: ""
+        from: 'hamid@gmail.com'
+        to: 'hamid@gmail.com'

@@ -16,9 +16,9 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"  
     volumes:
-      # - ./prometheus-data/:/etc/prometheus/
       - ./prometheus-data/:/prometheus
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      # - ./alert.rules:/etc/prometheus/alert.rules
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
@@ -40,6 +40,17 @@ services:
     - --path.sysfs=/host/sys
     - --collector.filesystem.ignored-mount-points
     - ^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)
+    
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanagers
+    # restart: unless-stopped
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager.yml:/config/alertmanager.yml
+      - ./alertmanager-data:/data
+    command: --config.file=/config/alertmanager.yml --log.level=debug
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
@@ -54,8 +65,8 @@ services:
     - /dev/disk/:/dev/disk:ro
     - /etc/localtime:/etc/localtime:ro
 
-volumes:
-    grafana:
-      name: grafana
-    prometheus:
-      name: prometheus
+# volumes:
+#     grafana:
+#       name: grafana
+#     prometheus:
+#       name: prometheus
