@@ -899,6 +899,25 @@ alertmanager:
 ##
 grafana:
   enabled: true
+
+  # persistence:
+  #       enabled: true
+  #       metadata:
+  #         name: grafana-pvc
+  #       spec:
+  #         storageClassName: nfs
+  #         accessModes: ["ReadWriteMany"]
+  #         resources:
+  #           requests:
+  #             storage: 10Gi
+  # persistence:
+  #   type: pvc
+  #   enabled: true
+  #   storageClassName: nfs
+  #   accessModes: ["ReadWriteMany"]
+  #   size: 1Gi
+              
+
   namespaceOverride: ""
 
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
@@ -3292,10 +3311,10 @@ prometheus:
           name: prometheus-pvc
         spec:
           storageClassName: nfs
-          accessModes: ["ReadWriteOnce"]
+          accessModes: ["ReadWriteMany"]
           resources:
             requests:
-              storage: 5Gi
+              storage: 10Gi
     #     selector:
     #       matchLabels:
     #         name: hamid
