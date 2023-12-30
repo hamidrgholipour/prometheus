@@ -58,4 +58,26 @@ status:
 #     # annotations: {}
 #     finalizers:
 #       - kubernetes.io/pvc-protection
-#     existingClaim: prom-grafana
+#     existingClaim: prom-grafana.
+
+
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: prometheus-server
+# spec:
+#   capacity:
+#     storage: 2Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteOnce
+#   persistentVolumeReclaimPolicy: Retain
+#   storageClassName: efs
+#   csi:
+#     driver: efs.csi.aws.com
+#     volumeHandle: fs-123123123::fsap-123abc123abc
+
+# helm upgrade -i prometheus prometheus-community/prometheus \
+#   -n prometheus
+#   --set alertmanager.persistentVolume.storageClass="efs" \
+#   --set server.persistentVolume.storageClass="efs"
