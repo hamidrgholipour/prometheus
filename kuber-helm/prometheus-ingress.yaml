@@ -1,0 +1,14 @@
+#use it in value
+kube-prometheus-stack:
+  prometheus:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      tls:
+      hosts:
+        - prometheus.dc-infra.local
+    prometheusSpec:
+      additionalScrapeConfigs:
+        - job_name: nginx-controller
+          scrape_interval: 10s
+          static_configs:

@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pvc-prom-grafana-0
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 10Gi
+  cinder:
+    fsType: ext3
+    volumeID: b98a2233-a12c-4835-8db7-9f7371495a21
+  storageClassName: grafana
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prom-grafana
+  namespace: prom
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: grafana
+  volumeMode: Filesystem
+  volumeName: pvc-prom-grafana-0
+status:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 10Gi
+
+
+# in value file
+
+# ---
+# grafana:
+#   enabled: true
+
+#   ingress:
+#     enabled: true
+#     annotations:
+#       kubernetes.io/ingress.class: nginx
+#       cert-manager.io/cluster-issuer: "letsencrypt-prod"
+#     hosts:
+#       - grafana.host
+#     tls:
+#       - hosts:
+#           - grafana.host
+#         secretName: grafana-tls
+
+#   persistence:
+#     type: pvc
+#     enabled: true
+#     # annotations: {}
+#     finalizers:
+#       - kubernetes.io/pvc-protection
+#     existingClaim: prom-grafana
