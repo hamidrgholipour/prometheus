@@ -3226,14 +3226,14 @@ prometheus:
           name: prometheus-pvc
         spec:
           storageClassName: nfs
-          accessModes: ["ReadWriteOnce"]
+          accessModes: ["ReadWriteMany"]
           resources:
             requests:
               storage: 10Gi
         selector:
           matchLabels:
             app.kubernetes.io/name: pv-nfs-prometheus
-                 
+
     ## Using PersistentVolumeClaim
     ##
     #  volumeClaimTemplate:

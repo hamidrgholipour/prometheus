@@ -1,4 +1,5 @@
 #chown nobody:nogroup /nfs
+#chmode 777 -R /nfs
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -8,7 +9,7 @@ spec:
   capacity:
     storage: 10Gi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: nfs
   persistentVolumeReclaimPolicy: Retain
   nfs:
