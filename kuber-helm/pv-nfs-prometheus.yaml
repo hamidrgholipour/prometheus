@@ -1,3 +1,5 @@
+#chown nobody:nogroup /nfs
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -6,10 +8,25 @@ spec:
   capacity:
     storage: 10Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: nfs
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: nfs
     path: /nfs
 
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: pv-prom-prometheus-0
+# spec:
+#   capacity:
+#     storage: 10Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteOnce
+#   persistentVolumeReclaimPolicy: Retain
+#   storageClassName: nfs
+#   nfs:
+#     server: nfs
+#     path: /nfs

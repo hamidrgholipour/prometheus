@@ -1,15 +1,34 @@
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-nfs-grafana
+  name: pv-prom-grafana-0
 spec:
-  capacity:
-    storage: 10Gi
   accessModes:
     - ReadWriteMany
-  storageClassName: nfs
-  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 10Gi
+  storageClassName: grafana  
   nfs:
     server: nfs
     path: /nfs
-
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prom-grafana
+  namespace: monitoring
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: grafana
+  volumeMode: Filesystem
+  volumeName: pv-prom-grafana-0
+status:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 10Gi

@@ -704,7 +704,17 @@ alertmanager:
     ## Storage is the definition of how storage will be used by the Alertmanager instances.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
     ##
-    storage: {}
+    storage: 
+
+    volumeClaimTemplate:
+      spec:
+        storageClassName: nfs
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
+        selector: {}
+
     # volumeClaimTemplate:
     #   spec:
     #     storageClassName: gluster
@@ -910,12 +920,13 @@ grafana:
   #         resources:
   #           requests:
   #             storage: 10Gi
-  # persistence:
-  #   type: pvc
-  #   enabled: true
-  #   storageClassName: nfs
-  #   accessModes: ["ReadWriteMany"]
-  #   size: 1Gi
+  persistence:
+    type: pvc
+    enabled: true
+    # annotations: {}
+    finalizers:
+      - kubernetes.io/pvc-protection
+    existingClaim: prom-grafana
               
 
   namespaceOverride: ""
@@ -3306,28 +3317,35 @@ prometheus:
     
     storageSpec: 
 
+      # volumeClaimTemplate:
+      #   metadata:
+      #     name: prometheus-pvc
+      #     namespace: monitoring
+      #   spec:
+      #     storageClassName: nfs
+      #     volumeMode: Filesystem
+      #     volumeName: pv-prom-prometheus-0
+      #     accessModes: ["ReadWriteOnce"]
+      #     resources:
+      #       requests:
+      #         storage: 10Gi
+      #   status:
+      #     accessModes:
+      #       - ReadWriteOnce
+      #     capacity:
+      #       storage: 10Gi
+
+    ## Using PersistentVolumeClaim
+    ##
       volumeClaimTemplate:
         metadata:
           name: prometheus-pvc
         spec:
           storageClassName: nfs
-          accessModes: ["ReadWriteMany"]
+          accessModes: ["ReadWriteOnce"]
           resources:
             requests:
               storage: 10Gi
-    #     selector:
-    #       matchLabels:
-    #         name: hamid
-
-    ## Using PersistentVolumeClaim
-    ##
-    #  volumeClaimTemplate:
-    #    spec:
-    #      storageClassName: gluster
-    #      accessModes: ["ReadWriteOnce"]
-    #      resources:
-    #        requests:
-    #          storage: 50Gi
     #    selector: {}
 
     ## Using tmpfs volume
