@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: example-app
+  template:
+    metadata:
+      labels:
+        app: example-app
+    spec:
+      containers:
+      - name: example-app
+        image: fabxc/instrumented_app
+        ports:
+        - name: web
+          containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: example-app
+  labels:
+    app: example-app
+spec:
+  selector:
+    app: example-app
+  ports:
+  - name: web
+    port: 8080
+---
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   name: example-app
+#   labels:
+#     team: frontend
+# spec:
+#   selector:
+#     matchLabels:
+#       app: example-app
+#   endpoints:
+#   - port: web  
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  annotations:
+    meta.helm.sh/release-name: monitoring
+    meta.helm.sh/release-namespace: monitoring
+  generation: 1
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: monitoring
+    app.kubernetes.io/managed-by: Hamid
+    app.kubernetes.io/name: example-app
+    jobLabel: example-app
+    release: monitoring
+  name: example-app
+  namespace: monitoring
+spec:
+  attachMetadata:
+    node: false
+  endpoints:
+  - port: web
+  jobLabel: jobLabel
+  selector:
+    matchLabels:
+        app: example-app
+  namespaceSelector:
+    # matchNames:
+    # - default
+    any: true   
