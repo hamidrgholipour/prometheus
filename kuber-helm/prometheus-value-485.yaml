@@ -860,8 +860,9 @@ grafana:
     type: pvc
     enabled: true
     # annotations: {}
-    finalizers:
-      - kubernetes.io/pvc-protection
+    # finalizers:
+    #   - kubernetes.io/pvc-protection
+    storageClassName: "grafana"
     existingClaim: prom-grafana
 
   namespaceOverride: ""

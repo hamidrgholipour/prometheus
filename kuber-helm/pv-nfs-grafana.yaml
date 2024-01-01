@@ -1,3 +1,4 @@
+#local storage works file 
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -9,9 +10,21 @@ spec:
   capacity:
     storage: 10Gi
   storageClassName: grafana  
-  nfs:
-    server: nfs
-    path: /nfs
+  volumeMode: Filesystem
+  # nfs:
+  #   server: nfs
+  #   path: /nfs/grafana
+  local:
+    path: /nfs/grafana
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - hamid
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
