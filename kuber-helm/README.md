@@ -2,6 +2,9 @@
 
 use helmchart - kuber-prometheus-stach => `helm install prometheus-local .  --debug  --namespace demo`
 
+## install online
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
 use online repo => `prometheus-community/kube-prometheus-stack`
 
 *get grafana pass
