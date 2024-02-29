@@ -1,0 +1,5 @@
+quay.io/kiwigrid/k8s-sidecar:1.25.2
+docker.io/grafana/grafana:10.3.1
+quay.io/prometheus-operator/prometheus-operator:v0.71.2
+registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.10.1
+quay.io/prometheus/node-exporter:v1.7.0
