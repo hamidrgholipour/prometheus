@@ -704,12 +704,13 @@ alertmanager:
     ## Storage is the definition of how storage will be used by the Alertmanager instances.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
     ##
+    ## storage-alertmanager
     storage: 
 
     volumeClaimTemplate:
       spec:
-        storageClassName: nfs
-        accessModes: ["ReadWriteOnce"]
+        storageClassName: nfs-client
+        accessModes: ["ReadWriteMany"]
         resources:
           requests:
             storage: 10Gi
@@ -907,8 +908,9 @@ alertmanager:
 
 ## Using default values from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
 ##
+## storage-grafana
 grafana:
-  enabled: true
+  #enabled: true
 
   # persistence:
   #       enabled: true
@@ -920,13 +922,26 @@ grafana:
   #         resources:
   #           requests:
   #             storage: 10Gi
-  persistence:
-    type: pvc
-    enabled: true
-    # annotations: {}
-    finalizers:
-      - kubernetes.io/pvc-protection
-    existingClaim: prom-grafana
+
+    # persistence:
+    #     enabled: true
+    #     metadata:
+    #       name: grafana-pvc
+    #     spec:
+    #       storageClassName: nfs-client
+    #       accessModes: ["ReadWriteMany"]
+    #       resources:
+    #         requests:
+    #           storage: 10Gi
+
+
+  # persistence:
+  #   type: pvc
+  #   enabled: true
+  #   # annotations: {}
+  #   finalizers:
+  #     - kubernetes.io/pvc-protection
+  #   existingClaim: nfs-client
               
 
   namespaceOverride: ""
@@ -3336,12 +3351,12 @@ prometheus:
       #       storage: 10Gi
 
     ## Using PersistentVolumeClaim
-    ##
+    ## prometheus-storage
       volumeClaimTemplate:
         metadata:
           name: prometheus-pvc
         spec:
-          storageClassName: nfs
+          storageClassName: nfs-client
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
