@@ -1,0 +1,15 @@
+scrapeconfigs.monitoring.coreos.com
+alertmanagerconfigs.monitoring.coreos.com
+alertmanagers.monitoring.coreos.com
+podmonitors.monitoring.coreos.com
+probes.monitoring.coreos.com
+servicemonitors.monitoring.coreos.com
+thanosrulers.monitoring.coreos.com
+prometheusagents.monitoring.coreos.com
+prometheuses.monitoring.coreos.com
+prometheusrules.monitoring.coreos.com
+grafanaagents.monitoring.grafana.com
+integrations.monitoring.grafana.com
+logsinstances.monitoring.grafana.com
+metricsinstances.monitoring.grafana.com
+podlogs.monitoring.grafana.com

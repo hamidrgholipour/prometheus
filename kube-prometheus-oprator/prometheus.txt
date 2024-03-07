@@ -1,2 +1,0 @@
-deploy oprator and grafana : https://github.com/prometheus-operator
-https://chronosphere.io/learn/how-to-use-prometheus-to-monitor-your-services-on-kubernetes/

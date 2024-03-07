@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: alertmanager-np
+spec:
+  selector:
+    # app.kubernetes.io/instance: demo
+    app.kubernetes.io/name: alertmanager
+  type: NodePort
+  ports:
+    - port: 9093
+      targetPort: 9093
+      nodePort: 30093
