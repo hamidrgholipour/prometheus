@@ -5,12 +5,7 @@ metadata:
   namespace: monitor
 spec:
   selector:
-<<<<<<< HEAD
-    # app.kubernetes.io/instance: demo
-    app.kubernetes.io/instance: prometheus
-=======
     app.kubernetes.io/instance: monitor
->>>>>>> e0bd5761ecc68d352e6077bb2dc8e5937f1ba5eb
     app.kubernetes.io/name: grafana
   type: NodePort
   ports:
