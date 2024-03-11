@@ -2,10 +2,12 @@ kind: Service
 apiVersion: v1
 metadata:
   name: prometheus-np
+  namespace: monitor
 spec:
   selector:
-    # app.kubernetes.io/instance: demo
+    app.kubernetes.io/instance: prometheus
     app.kubernetes.io/name: prometheus
+    # namespace: monitor
   type: NodePort
   ports:
     - port: 9090
