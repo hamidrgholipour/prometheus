@@ -1,1 +1,1 @@
-## deoloying kubernetes and docker  monitoring with prometheus and grafana
+## deploying kubernetes and docker  monitoring with prometheus and grafana
