@@ -1,0 +1,8 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: docker-registery
+spec:
+  staticConfigs:
+  - targets:
+    - "10.0.0.201:9100"
