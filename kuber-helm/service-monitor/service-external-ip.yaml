@@ -1,0 +1,27 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+ name: ha
+ labels:
+#     app: node-exporter-external
+    name: ha
+spec:
+ type: ClusterIP
+ ports:
+ - name: metrics
+   port: 8090
+   targetPort: 8090
+
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+ name: ha
+subsets:
+- addresses:
+  - ip: 10.10.10.10
+  ports:
+  - name: metrics
+    port: 8090
+    protocol: TCP
