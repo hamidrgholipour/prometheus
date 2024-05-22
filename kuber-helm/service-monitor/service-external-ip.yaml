@@ -4,7 +4,6 @@ apiVersion: v1
 metadata:
  name: ha
  labels:
-#     app: node-exporter-external
     name: ha
 spec:
  type: ClusterIP
@@ -25,3 +24,32 @@ subsets:
   - name: metrics
     port: 8090
     protocol: TCP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  annotations:
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: default
+  # generation: 1
+  # labels:
+  #   app.kubernetes.io/component: metrics
+  #   app.kubernetes.io/instance: prometheus
+  #   app.kubernetes.io/name: example-app
+  #   jobLabel: example-app
+  #   release: prometheus
+  name: example-app
+  namespace: default
+spec:
+  attachMetadata:
+    node: false
+  endpoints:
+  - port: metrics
+  jobLabel: jobLabel
+  selector:
+    matchLabels:
+        name: ha
+  namespaceSelector:
+    # matchNames:
+    # - default
+    any: true   
