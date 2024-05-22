@@ -1,0 +1,58 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+ name: haproxy
+ namespace: monitor
+ labels:
+    name: haproxy
+spec:
+ type: ClusterIP
+ ports:
+ - name: metrics
+   port: 8090
+   targetPort: 8090
+
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+ name: haproxy
+ namespace: monitor
+subsets:
+- addresses:
+  - ip: 10.0.0.10
+  ports:
+  - name: metrics
+    port: 8090
+    protocol: TCP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  annotations:
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: monitor
+  # generation: 1
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/name: haproxy
+    jobLabel: haproxy
+    release: prometheus
+  name: haproxy
+  namespace: monitor
+spec:
+  attachMetadata:
+    node: false
+  endpoints:
+  - port: metrics
+    interval: 5s
+  jobLabel: jobLabel
+  selector:
+    matchLabels:
+        name: haproxy
+  namespaceSelector:
+    matchNames:
+    - monitor
+    any: true   
