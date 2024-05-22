@@ -45,6 +45,7 @@ spec:
     node: false
   endpoints:
   - port: metrics
+    interval: 5s
   jobLabel: jobLabel
   selector:
     matchLabels:
