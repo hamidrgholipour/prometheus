@@ -1,0 +1,58 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+ name: haproxy-node-exporter
+ namespace: monitor
+ labels:
+    name: haproxy-node-exporter
+spec:
+ type: ClusterIP
+ ports:
+ - name: metrics
+   port: 9100
+   targetPort: 9100
+
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+ name: haproxy-node-exporter
+ namespace: monitor
+subsets:
+- addresses:
+  - ip: 10.0.0.10
+  ports:
+  - name: metrics
+    port: 9100
+    protocol: TCP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  annotations:
+    meta.helm.sh/release-name: prometheus
+    meta.helm.sh/release-namespace: monitor
+  # generation: 1
+  labels:
+    app.kubernetes.io/component: metrics
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/name: haproxy-node-exporter
+    jobLabel: haproxy-node-exporter
+    release: prometheus
+  name: haproxy-node-exporter
+  namespace: monitor
+spec:
+  attachMetadata:
+    node: false
+  endpoints:
+  - port: metrics
+    interval: 5s
+  jobLabel: jobLabel
+  selector:
+    matchLabels:
+        name: haproxy-node-exporter
+  namespaceSelector:
+    matchNames:
+    - monitor
+    any: true   
